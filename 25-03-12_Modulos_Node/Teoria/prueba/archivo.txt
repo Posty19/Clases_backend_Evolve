@@ -1,0 +1,3 @@
+este es un fichero de prueba que estamos utilizando
+para probar modulos de node
+y servirá como ejercicio a los alumnos
