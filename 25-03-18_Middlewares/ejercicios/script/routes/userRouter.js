@@ -64,19 +64,19 @@ router.get("/:id/profile", (request, response) => {
   const user = users.filter((us) => {
     if (us.id == id) return us;
   });
-  console.log('user id '+id);
-  console.log(user);
+  //console.log('user id '+id);
+  //console.log(user);
   response.status(200).json({
     succsess: "Ok",
-    id: user.id,
-    name: user.name,
-    age: user.age,
-    city: user.city,
-    role: user.role,
+    id: user[0].id,
+    name: user[0].name,
+    age: user[0].age,
+    city: user[0].city,
+    role: user[0].role,
   });
 });
 
-router.post("/", (error, request, response, next) => {
+router.post("/", (request, response) => {
     const { name,age,city,role } = request.body;
     console.log(request.body);
     
@@ -105,8 +105,12 @@ router.put("/:id", (request, response) => {
 
 router.delete("/:id", (request, response) => {
   const { id } = request.params;
-  users = users.map((us) => (us.id === id ? user.deleted=true : us));
-  console.log(users);
+  users = users.map((us) =>{
+    if(us.id == id){
+      us.deleted=true;      
+    }
+    return us;
+  });
   response.status(200).json({
     succsess: "Ok",
     users:users
@@ -114,11 +118,14 @@ router.delete("/:id", (request, response) => {
 });
 
 router.get("/:id/posts/:postId", (request, response) => {
-    const {id,postiD} = request.params;
-    const post = posts.filter(p=>{
-        if(p.postId==postiD) return p;
+    const {id,postId} = request.params;
+    let post;  
+    posts.forEach(p=>{
+        if(p.postId==postId){
+
+          post = p;
+        } 
     })
-    console.log(post);
     response.status(200).json({
         succsess: "Ok",
         post:post

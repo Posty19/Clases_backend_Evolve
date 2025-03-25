@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router()
 
-router.get('/',(request,response)=>{
-    console.log('prueba');
+router.get('/',(request,response,next)=>{
     const {idioma,temas} = request.query;
-    response.status(200).json({success:'ok',language:idioma,theme:temas})
+    if(idioma&&temas){
+        response.status(200).json({success:'ok',language:idioma,theme:temas})
+    }else{
+        const error = new Error('faltan datos');
+        next(error);
+    }
 });
 
 router.get('/about',(request,response)=>{
