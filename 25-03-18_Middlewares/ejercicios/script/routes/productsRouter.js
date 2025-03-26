@@ -26,19 +26,38 @@ router.get('/',(request,response)=>{
     response.status(200).json({succsess:'ok',products})
 })
 
-router.get('/featured',(rwques,response)=>{
+router.get('/featured',(request,response)=>{
     //Obtiene productos destacados, con un límite y categoría.
+    const {limite,categoria} = request.query;
      
-
+    const filtredProducts = products.filter(prod=>{
+        if(prod.price<=limite&&prod.category===categoria) return prod;
+    })
+    response.status(200).json({
+        succsess:'ok',
+        products:filtredProducts
+    })
 })
 
-router.get('/cathegories/:mainCathrgory',(reques,response)=>{
+router.get('/cathegories/:mainCathrgory',(request,response)=>{
     //Muestra productos filtrados por una categoría principal y opcionalmente por subcategorías
+    const {categoria} = request.params;
 
+    const filtredProducts = products.filter(prod=>{
+        if(prod.category===categoria) return prod;
+    })
+    response.status(200).json({
+        succsess:'ok',
+        products:filtredProducts
+    })
 })
 
-router.post('/',(reques,response)=>{
+router.post('/',(request,response)=>{
     //Permite la creación de un nuevo producto.
+    const {name,cathegory,price,featured}=request.body
+    const id=products.length;
+
+    products.push({id,name,cathegory,price,featured});
 
 })
 
