@@ -1,0 +1,19 @@
+{
+  "name": "25-03-21_conexion_bbdd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.13.0",
+    "mongose": "^0.0.2-security",
+    "moongose": "^1.0.0",
+    "pg": "^8.14.1"
+  }
+}
