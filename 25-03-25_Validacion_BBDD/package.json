@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "express-validator": "^7.2.1",
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.0",
     "mongose": "^0.0.2-security",
