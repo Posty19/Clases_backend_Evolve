@@ -1,6 +1,5 @@
 const app = require('./src/app');
 const connectDB = require('./src/config/database');
-const cors = require('cors')
 
 const port = 3000 //depende de la variable de entorno
 
