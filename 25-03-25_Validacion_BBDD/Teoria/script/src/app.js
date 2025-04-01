@@ -1,5 +1,6 @@
 const express = require("express");
-const homeRouter = require("./routes/homeRouter.js");
+//const {conectDb} = require("./config/database.js"); opcional aqui o en server.js
+//const homeRouter = require("./routes/homeRouter.js");
 const userRouter = require("./routes/userRouter.js");
 const productsRouter = require("./routes/productsRouter.js");
 const errorMiddleware = require("./middlewares/errosMiddleware.js");
@@ -22,8 +23,8 @@ const apiLimiter = rateLimit({
 });
 app.use('/',apiLimiter)
 app.use(sanitize());
-
-app.use("/home", homeRouter);
+//app.use(conectDb); opcional aqui o en server.js
+//app.use("/home", homeRouter);
 app.use("/users", userRouter);
 app.use("/products", productsRouter);
 app.use(errorMiddleware);
