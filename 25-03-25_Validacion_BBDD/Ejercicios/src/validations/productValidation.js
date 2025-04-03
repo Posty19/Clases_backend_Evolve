@@ -103,9 +103,25 @@ const createProductValidations = [
       }
     }),
 
-    /*
+  /*
         probar si fumciona y repetir para etiquetas e imagenes 
     */
-   
+
   validateResult,
 ];
+
+const updateProductValidation = [
+
+    validateResult
+];
+
+const getProductsValidation = [
+
+    validateResult
+];
+
+module.exports = {
+  createProductValidations,
+  updateProductValidation,
+  getProductsValidation,
+};
