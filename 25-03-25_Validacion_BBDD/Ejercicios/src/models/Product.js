@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  categoria: {
+  codigoProducto: {
     type: String,
     required: true,
     unique: true,
@@ -44,6 +44,7 @@ const productSchema = new mongoose.Schema({
   },
   peso: {
     type: Number,
+    required:true,
     min: 0,
   },
   dimensiones: {
@@ -76,12 +77,8 @@ const productSchema = new mongoose.Schema({
     type: [String],
   },
   esActivo: {
-    type: Date,
-    default: true,
-  },
-  esActivo: {
-    type: Date,
-    required: true,
+    type: Boolean,
+    required:true,
     default: true,
   },
   fechaCreacion: {
