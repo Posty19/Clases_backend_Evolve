@@ -1,6 +1,8 @@
 const express = require('express');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const authRoutes = require('./routes/authRoutes');
+const veryfyToken = require('./middlewares/authMiddleware')
 const errorHandler = require('./middlewares/errorMiddleware');
 const notFoundHandler = require('./middlewares/notFoundHandler');
 const cors = require('cors');
@@ -9,6 +11,9 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 // Protección contra consultas NoSQL maliciosas (inyección)
 const mongoSanitize = require('express-mongo-sanitize');
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser('tu_secreto_jwt'));
 
 const app = express();
 
@@ -24,10 +29,6 @@ app.use(helmet());
 // Protección contra consulta maliciosas
 app.use(mongoSanitize());
 
-// Ejemplo de ataque prevenido:
-// Un atacante envía: { "email": { "$ne": "" }, "password": "123" }
-// Se convierte en: { "email": {}, "password": "123" }
-
 const apiLimiter = rateLimit({ // ESTO SE LLAMA LIMITADOR 
     windowMs: 15 * 60 * 1000, // 15 minutos
     max: 100, // 100 peticiones por IP
@@ -38,8 +39,9 @@ const apiLimiter = rateLimit({ // ESTO SE LLAMA LIMITADOR
 app.use('/', apiLimiter);
   
 // Montamos las rutas en diferentes paths base
-app.use('/users', userRoutes);     // Todas las rutas de usuarios empezarán con /users
-app.use('/products', productRoutes); // Todas las rutas de productos empezarán con /products
+app.use('/auth',authRoutes)
+app.use('/users', veryfyToken, userRoutes);// verify token se puede poner tambien en las rutas
+app.use('/products', productRoutes); 
 
 // Manejador de rutas no encontradas
 app.use(notFoundHandler);
